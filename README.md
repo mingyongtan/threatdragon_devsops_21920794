@@ -22,5 +22,3 @@
 - TDE + MFA  
 - RBAC + audit logs  
 - CSP + input validation  
-
-**Submitted for grading + portfolio showcase.**
