@@ -1,0 +1,793 @@
+{
+  "version": "2.5.0",
+  "summary": {
+    "title": "WebApp Threat Model",
+    "owner": "ming_21920794",
+    "description": "",
+    "id": 0
+  },
+  "detail": {
+    "contributors": [],
+    "diagrams": [
+      {
+        "id": 0,
+        "title": "WebApp DFD",
+        "diagramType": "STRIDE",
+        "placeholder": "New STRIDE diagram description",
+        "thumbnail": "./public/content/images/thumbnail.stride.jpg",
+        "version": "2.5.0",
+        "cells": [
+          {
+            "position": {
+              "x": 150,
+              "y": -160.00000000000028
+            },
+            "size": {
+              "width": 420,
+              "height": 240
+            },
+            "attrs": {
+              "label": {
+                "text": "Server-Side Trust Boundary"
+              }
+            },
+            "visible": true,
+            "shape": "trust-boundary-box",
+            "zIndex": -1,
+            "id": "60760a35-b9e3-4b4f-a9d8-bf21af38b1be",
+            "data": {
+              "type": "tm.BoundaryBox",
+              "name": "Server-Side Trust Boundary",
+              "description": "Separates client (public internet) from server-side components. \nHTTP traffic crosses boundary: SQL traffic is internal.",
+              "isTrustBoundary": true,
+              "hasOpenThreats": false
+            }
+          },
+          {
+            "position": {
+              "x": -180,
+              "y": 20
+            },
+            "size": {
+              "width": 112.5,
+              "height": 60
+            },
+            "attrs": {
+              "text": {
+                "text": "User Interface"
+              },
+              "body": {
+                "stroke": "red",
+                "strokeWidth": 2.5,
+                "strokeDasharray": null
+              }
+            },
+            "visible": true,
+            "shape": "actor",
+            "zIndex": 1,
+            "ports": {
+              "groups": {
+                "top": {
+                  "position": "top",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "right": {
+                  "position": "right",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "bottom": {
+                  "position": "bottom",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "left": {
+                  "position": "left",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                }
+              },
+              "items": [
+                {
+                  "group": "top",
+                  "id": "c658ddef-0082-488a-ac92-611edd6cde87"
+                },
+                {
+                  "group": "right",
+                  "id": "944ba4f5-4287-4f90-ab18-096b54a2b6f2"
+                },
+                {
+                  "group": "bottom",
+                  "id": "6d566778-d7a2-4ba6-a0c8-ee4fa8cf0970"
+                },
+                {
+                  "group": "left",
+                  "id": "b05a8604-20e2-4ed8-85ad-fc8387e7884c"
+                }
+              ]
+            },
+            "id": "e1a04480-b456-4b58-835e-c334d6f83038",
+            "data": {
+              "type": "tm.Actor",
+              "name": "User Interface",
+              "description": "",
+              "isTrustBoundary": false,
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": true,
+              "providesAuthentication": false,
+              "threats": [
+                {
+                  "id": "e8ce90f2-1508-46e2-a7c1-4a9dea558133",
+                  "title": "[S] UI Spoofing - Session Hijack",
+                  "status": "Open",
+                  "severity": "Critical",
+                  "type": "",
+                  "description": "Attacker steals cookies to impersonate user.",
+                  "mitigation": "HttpOnly + Secure + SameSite cookies, JWT.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 2,
+                  "score": ""
+                },
+                {
+                  "id": "2af20ff8-18cd-4a42-bac6-7f1759a838f3",
+                  "title": "[T] UI Tampering - XSS Injection",
+                  "status": "Open",
+                  "severity": "High",
+                  "type": "",
+                  "description": "Malicious script alters form input.",
+                  "mitigation": "CSP, input sanitization, output encoding.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 3,
+                  "score": ""
+                },
+                {
+                  "id": "76a4bc8a-2d2d-46eb-bc5e-9e7ec76eaf59",
+                  "title": "[R] UI Repudiation - No Action Proof",
+                  "status": "Open",
+                  "severity": "Low",
+                  "type": "",
+                  "description": "User denies submitting data.",
+                  "mitigation": "Client-side signed timestamps.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 4,
+                  "score": ""
+                },
+                {
+                  "id": "d440c463-44bd-4217-a34c-b5f341768dd6",
+                  "title": "[I] UI Info Disclosure - Error Leaks",
+                  "status": "Open",
+                  "severity": "Medium",
+                  "type": "",
+                  "description": "Verbose errors expose system info.",
+                  "mitigation": "Generic error messages.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 5,
+                  "score": ""
+                },
+                {
+                  "id": "202b4dc3-2183-437a-8a7d-c5c66e59af7e",
+                  "title": "[D] UI DoS - JS Flood",
+                  "status": "Open",
+                  "severity": "Medium",
+                  "type": "",
+                  "description": "Malformed input freezes browser.",
+                  "mitigation": "Rate limiting, JS sandbox.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 6,
+                  "score": ""
+                },
+                {
+                  "id": "63c7f6fa-9ebc-4ef3-8abc-ebcd340d3919",
+                  "title": "[E] UI EoP - DOM Bypass",
+                  "status": "Open",
+                  "severity": "Medium",
+                  "type": "",
+                  "description": "Client-side logic trusts manipulated DOM.",
+                  "mitigation": "Server-side authorization only.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 7,
+                  "score": ""
+                }
+              ],
+              "threatFrequency": {
+                "spoofing": 0,
+                "repudiation": 0
+              }
+            }
+          },
+          {
+            "position": {
+              "x": 180,
+              "y": -120
+            },
+            "size": {
+              "width": 80,
+              "height": 70
+            },
+            "attrs": {
+              "text": {
+                "text": "Web \nApplication"
+              },
+              "body": {
+                "stroke": "red",
+                "strokeWidth": 2.5,
+                "strokeDasharray": null
+              }
+            },
+            "visible": true,
+            "shape": "process",
+            "zIndex": 2,
+            "ports": {
+              "groups": {
+                "top": {
+                  "position": "top",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "right": {
+                  "position": "right",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "bottom": {
+                  "position": "bottom",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "left": {
+                  "position": "left",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                }
+              },
+              "items": [
+                {
+                  "group": "top",
+                  "id": "5a0ab250-bc22-4870-92f6-02a562c08b0e"
+                },
+                {
+                  "group": "right",
+                  "id": "a9ade588-8b6a-4718-8f3f-771f291d6d8a"
+                },
+                {
+                  "group": "bottom",
+                  "id": "5dfe5437-322e-41fb-8140-4551e9f0b443"
+                },
+                {
+                  "group": "left",
+                  "id": "09fdbb38-bc08-487a-9b58-3fc1ced4e7f3"
+                }
+              ]
+            },
+            "id": "a982c146-edae-4813-9fe1-197fb6c4c829",
+            "data": {
+              "type": "tm.Process",
+              "name": "Web \nApplication",
+              "description": "",
+              "outOfScope": false,
+              "isTrustBoundary": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": true,
+              "handlesCardPayment": false,
+              "handlesGoodsOrServices": false,
+              "isWebApplication": true,
+              "privilegeLevel": "",
+              "threats": [
+                {
+                  "id": "50edd0fa-36da-45aa-bcc2-9d352f01371f",
+                  "title": "[S] App Spoofing - MITM on HTTPS",
+                  "status": "Open",
+                  "severity": "High",
+                  "type": "Spoofing",
+                  "description": "Intercepts traffic over public network.",
+                  "mitigation": "TLS 1.3, HSTS, cert pinning.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 8,
+                  "score": ""
+                },
+                {
+                  "id": "af8dfb10-958b-4a04-8cac-be2622b6c2c0",
+                  "title": "[T] App Tampering - SQL Injection",
+                  "status": "Open",
+                  "severity": "Critical",
+                  "type": "Tampering",
+                  "description": "Input modifies DB queries.",
+                  "mitigation": "Parameterized queries, ORM.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 9,
+                  "score": ""
+                },
+                {
+                  "id": "de9d57c0-3f1c-4542-9159-482737cfe191",
+                  "title": "[R] App Repudiation - No Logs",
+                  "status": "Open",
+                  "severity": "Medium",
+                  "type": "Repudiation",
+                  "description": "Actions not traceable.",
+                  "mitigation": "Immutable audit logs.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 10,
+                  "score": ""
+                },
+                {
+                  "id": "f70d1a70-7e19-43b6-ba4f-51e0c8f5c9ab",
+                  "title": "[I] App Info Disclosure - Data Leak",
+                  "status": "Open",
+                  "severity": "High",
+                  "type": "Information disclosure",
+                  "description": "PII sent unencrypted.",
+                  "mitigation": "Encrypt in transit/rest.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 11,
+                  "score": ""
+                },
+                {
+                  "id": "39786090-2794-47ba-a4ca-0af93a1baa5e",
+                  "title": "[D] App DoS - Resource Exhaustion",
+                  "status": "Open",
+                  "severity": "Medium",
+                  "type": "Denial of service",
+                  "description": "High load crashes server.",
+                  "mitigation": "Auto-scaling, timeouts.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 12,
+                  "score": ""
+                },
+                {
+                  "id": "d9ba253d-bd57-40f8-8ede-ffa7ddf2822e",
+                  "title": "[E] App EoP - Broken ACL",
+                  "status": "Open",
+                  "severity": "High",
+                  "type": "Elevation of privilege",
+                  "description": "Unauthorized endpoint access.",
+                  "mitigation": "RBAC, least privilege.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 13,
+                  "score": ""
+                }
+              ],
+              "threatFrequency": {
+                "spoofing": 2,
+                "tampering": 3,
+                "repudiation": 2,
+                "informationDisclosure": 2,
+                "denialOfService": 2,
+                "elevationOfPrivilege": 2
+              }
+            }
+          },
+          {
+            "position": {
+              "x": 420,
+              "y": 10
+            },
+            "size": {
+              "width": 120,
+              "height": 60
+            },
+            "attrs": {
+              "text": {
+                "text": "Database"
+              },
+              "topLine": {
+                "stroke": "red",
+                "strokeWidth": 2.5,
+                "strokeDasharray": null
+              },
+              "bottomLine": {
+                "stroke": "red",
+                "strokeWidth": 2.5,
+                "strokeDasharray": null
+              }
+            },
+            "visible": true,
+            "shape": "store",
+            "zIndex": 3,
+            "ports": {
+              "groups": {
+                "top": {
+                  "position": "top",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "right": {
+                  "position": "right",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "bottom": {
+                  "position": "bottom",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "left": {
+                  "position": "left",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                }
+              },
+              "items": [
+                {
+                  "group": "top",
+                  "id": "a28c854b-b85e-437a-9383-bc1fb35fd20c"
+                },
+                {
+                  "group": "right",
+                  "id": "be365a7f-63cd-422b-8545-9839af0e410e"
+                },
+                {
+                  "group": "bottom",
+                  "id": "e4d6afdc-b44f-4b16-b241-8e5cfd2a883a"
+                },
+                {
+                  "group": "left",
+                  "id": "95460b02-0595-49b0-8fd5-3bd254e6e7a7"
+                }
+              ]
+            },
+            "id": "48528803-7776-4426-a053-c7224fec3bd9",
+            "data": {
+              "type": "tm.Store",
+              "name": "Database",
+              "description": "",
+              "outOfScope": false,
+              "isTrustBoundary": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": true,
+              "isALog": false,
+              "isEncrypted": true,
+              "isSigned": false,
+              "storesCredentials": true,
+              "storesInventory": false,
+              "threats": [
+                {
+                  "id": "0e75db95-5d5a-4add-ace3-538f0ff00c84",
+                  "title": "[S] DB Spoofing - Credential Theft",
+                  "status": "Open",
+                  "severity": "High",
+                  "type": "Information disclosure",
+                  "description": "Stolen DB login.",
+                  "mitigation": "MFA, IP whitelist.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 14,
+                  "score": ""
+                },
+                {
+                  "id": "5b221a1a-ae48-473b-998d-be6507f0cb52",
+                  "title": "[T] DB Tampering - Row Edit",
+                  "status": "Open",
+                  "severity": "Critical",
+                  "type": "Tampering",
+                  "description": "Direct data change.",
+                  "mitigation": "Row-level security.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 15,
+                  "score": ""
+                },
+                {
+                  "id": "26b5c4e5-a11f-460f-a470-35eafa85a821",
+                  "title": "[R] DB Repudiation - No Audit",
+                  "status": "Open",
+                  "severity": "Low",
+                  "type": "Repudiation",
+                  "description": "No change trail.",
+                  "mitigation": "Immutable audit.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 16,
+                  "score": ""
+                },
+                {
+                  "id": "6ff3b2ff-1199-4007-aac5-d056d18782f8",
+                  "title": "[I] DB Info Disclosure - Plaintext",
+                  "status": "Open",
+                  "severity": "High",
+                  "type": "Information disclosure",
+                  "description": "Data at rest exposed.",
+                  "mitigation": "TDE encryption.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 17,
+                  "score": ""
+                },
+                {
+                  "id": "59bb71b5-9abb-42c5-bab4-1ba754f6b6de",
+                  "title": "[D] DB DoS - Connection Flood",
+                  "status": "Open",
+                  "severity": "Medium",
+                  "type": "Denial of service",
+                  "description": "Too many connections.",
+                  "mitigation": "Pooling, limits.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 18,
+                  "score": ""
+                },
+                {
+                  "id": "4505fc7a-034a-4eac-88f8-19e6f6f79a41",
+                  "title": "[E] DB EoP - SQL Escalation",
+                  "status": "Open",
+                  "severity": "Critical",
+                  "type": "Elevation of privilege",
+                  "description": "Read → admin via injection.",
+                  "mitigation": "Stored procedures.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 19,
+                  "score": ""
+                }
+              ],
+              "threatFrequency": {
+                "tampering": 2,
+                "repudiation": 2,
+                "informationDisclosure": 4,
+                "denialOfService": 2
+              }
+            },
+            "tools": {
+              "items": [
+                "boundary",
+                "button-remove"
+              ],
+              "name": null
+            }
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "#333333",
+                "targetMarker": {
+                  "name": "block"
+                },
+                "sourceMarker": {
+                  "name": "block"
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "HTTP Request: User Input\nHTTP Response: Rendered Data",
+              "description": "",
+              "outOfScope": false,
+              "isTrustBoundary": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "isBidirectional": true,
+              "isEncrypted": true,
+              "isPublicNetwork": true,
+              "protocol": "HTTPS",
+              "threats": []
+            },
+            "labels": [
+              "HTTP Request: User Input\nHTTP Response: Rendered Data"
+            ],
+            "id": "90f6c414-489f-492d-a296-f7e059f5ddfc",
+            "source": {
+              "cell": "e1a04480-b456-4b58-835e-c334d6f83038",
+              "port": "944ba4f5-4287-4f90-ab18-096b54a2b6f2"
+            },
+            "target": {
+              "cell": "a982c146-edae-4813-9fe1-197fb6c4c829",
+              "port": "09fdbb38-bc08-487a-9b58-3fc1ced4e7f3"
+            },
+            "vertices": [
+              {
+                "x": -20,
+                "y": -10
+              },
+              {
+                "x": 80,
+                "y": -40
+              }
+            ]
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "#333333",
+                "targetMarker": {
+                  "name": "block"
+                },
+                "sourceMarker": {
+                  "name": "block"
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "SQL Query: Fetch/Store User Data\nSQL Response",
+              "description": "",
+              "outOfScope": false,
+              "isTrustBoundary": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "isBidirectional": true,
+              "isEncrypted": true,
+              "isPublicNetwork": false,
+              "protocol": "SQL",
+              "threats": []
+            },
+            "labels": [
+              "SQL Query: Fetch/Store User Data\nSQL Response"
+            ],
+            "id": "18d2ad1b-96c3-43d1-9aea-39d010aa9a21",
+            "source": {
+              "cell": "a982c146-edae-4813-9fe1-197fb6c4c829",
+              "port": "a9ade588-8b6a-4718-8f3f-771f291d6d8a"
+            },
+            "target": {
+              "cell": "48528803-7776-4426-a053-c7224fec3bd9",
+              "port": "95460b02-0595-49b0-8fd5-3bd254e6e7a7"
+            },
+            "vertices": [
+              {
+                "x": 300,
+                "y": -60
+              },
+              {
+                "x": 340,
+                "y": -30
+              },
+              {
+                "x": 380,
+                "y": 10
+              }
+            ]
+          }
+        ],
+        "description": "21920794"
+      }
+    ],
+    "diagramTop": 2,
+    "reviewer": "",
+    "threatTop": 19
+  }
+}
