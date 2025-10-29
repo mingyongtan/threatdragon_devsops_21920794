@@ -14,7 +14,6 @@
 ## Files
 - `WebApp Threat Model.json` – Full Threat Dragon model  
 - `WebApp Threat Model Report.pdf` – Complete STRIDE report  
-- `DFD_Screenshot.png` – Visual DFD with trust boundary  
 
 ## Key Mitigations
 - HTTPS + HSTS  
